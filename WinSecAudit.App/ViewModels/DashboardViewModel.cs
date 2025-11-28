@@ -118,6 +118,16 @@ public partial class DashboardViewModel : ObservableObject
             >= 60 => "D",
             _ => "F"
         };
+
+        RiskLevel = score switch
+        {
+            >= 90 => "Low",
+            >= 70 => "Medium",
+            >= 50 => "High",
+            _ => "Critical"
+        };
+
+        TotalVulnerabilities = Summary.Critical + Summary.High + Summary.Medium + Summary.Low;
     }
 
     [RelayCommand]
