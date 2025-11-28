@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="WinSecAudit.Views.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
+    <ScrollViewer>
+        <StackPanel Padding="24" Spacing="24">
+            <TextBlock Text="Settings" Style="{StaticResource PageHeaderStyle}"/>
+
+            <!-- Appearance -->
+            <controls:SettingsExpander Header="Appearance" Description="Customize the look and feel"
+                                       HeaderIcon="{FontIcon Glyph=&#xE790;}">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Theme">
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem>System Default</ComboBoxItem>
+                            <ComboBoxItem>Light</ComboBoxItem>
+                            <ComboBoxItem>Dark</ComboBoxItem>
+                        </ComboBox>
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+
+            <!-- Scanning -->
+            <controls:SettingsExpander Header="Scanning" Description="Configure scan behavior"
+                                       HeaderIcon="{FontIcon Glyph=&#xE9D5;}">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Auto-save reports">
+                        <ToggleSwitch IsOn="True"/>
+                    </controls:SettingsCard>
+                    <controls:SettingsCard Header="Include passed checks in report">
+                        <ToggleSwitch IsOn="False"/>
+                    </controls:SettingsCard>
+                    <controls:SettingsCard Header="Default export format">
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem>HTML</ComboBoxItem>
+                            <ComboBoxItem>JSON</ComboBoxItem>
+                            <ComboBoxItem>CSV</ComboBoxItem>
+                        </ComboBox>
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+
+            <!-- Notifications -->
+            <controls:SettingsExpander Header="Notifications" Description="Alert preferences"
+                                       HeaderIcon="{FontIcon Glyph=&#xE7E7;}">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Show critical findings notification">
+                        <ToggleSwitch IsOn="True"/>
+                    </controls:SettingsCard>
+                    <controls:SettingsCard Header="Sound on scan complete">
+                        <ToggleSwitch IsOn="False"/>
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+
+            <!-- Reports -->
+            <controls:SettingsCard Header="Reports folder" Description="Where reports are saved"
+                                   HeaderIcon="{FontIcon Glyph=&#xE8B7;}">
+                <Button Content="Browse..."/>
+            </controls:SettingsCard>
+
+            <!-- Reset -->
+            <controls:SettingsCard Header="Reset settings" Description="Restore default settings"
+                                   HeaderIcon="{FontIcon Glyph=&#xE72C;}">
+                <Button Content="Reset"/>
+            </controls:SettingsCard>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
