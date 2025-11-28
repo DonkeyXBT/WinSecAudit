@@ -45,7 +45,7 @@
                         <TextBlock Text="WinSecAudit"
                                    Style="{StaticResource SubtitleTextBlockStyle}"
                                    FontWeight="SemiBold"/>
-                        <TextBlock Text="Security Auditing Tool"
+                        <TextBlock Text="Security Auditing Tool v2.0"
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                     </StackPanel>
