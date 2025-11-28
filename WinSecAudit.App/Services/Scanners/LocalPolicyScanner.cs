@@ -11,6 +11,7 @@ public class LocalPolicyScanner : SecurityScannerBase
 {
     public override string CategoryId => "LocalPolicy";
     public override string Name => "Local Security Policy";
+    public override string Description => "Audits password policies, account lockout settings, and security options";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
@@ -101,6 +102,32 @@ public class LocalPolicyScanner : SecurityScannerBase
                     $"Current: {(maxPwdAge == 0 ? "Never expires" : $"{maxPwdAge} days")}",
                     "Set maximum password age to 60 days or less",
                     "CIS Benchmark: 1.1.2"));
+            }
+
+            // Check lockout duration
+            var lockoutDuration = GetPolicyValue(secPolicy, "LockoutDuration", 0);
+            if (lockoutDuration < 15 && lockoutDuration != -1)
+            {
+                findings.Add(CreateFailedFinding(
+                    "Account Lockout Duration",
+                    Severity.Medium,
+                    $"Lockout duration is {lockoutDuration} minutes (recommended: >= 15 or until admin unlock)",
+                    $"Current: {lockoutDuration} minutes",
+                    "Set lockout duration to 15 minutes or more",
+                    "CIS Benchmark: 1.2.2"));
+            }
+
+            // Check reset lockout counter
+            var resetLockout = GetPolicyValue(secPolicy, "ResetLockoutCount", 0);
+            if (resetLockout < 15)
+            {
+                findings.Add(CreateFailedFinding(
+                    "Reset Account Lockout Counter",
+                    Severity.Low,
+                    $"Lockout counter reset is {resetLockout} minutes (recommended: >= 15)",
+                    $"Current: {resetLockout} minutes",
+                    "Set lockout counter reset to 15 minutes or more",
+                    "CIS Benchmark: 1.2.3"));
             }
         }
         catch (Exception ex)
