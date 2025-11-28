@@ -12,6 +12,7 @@ public class ProcessScanner : SecurityScannerBase
 {
     public override string CategoryId => "Processes";
     public override string Name => "Running Processes";
+    public override string Description => "Detects suspicious processes, masquerading, and malicious command lines";
 
     private static readonly string[] SuspiciousNames = new[]
     {
@@ -19,7 +20,8 @@ public class ProcessScanner : SecurityScannerBase
         "rubeus", "kerberoast", "bloodhound", "sharphound",
         "psexec", "crackmapexec", "nc", "ncat", "netcat",
         "powercat", "empire", "cobaltstrike", "beacon",
-        "winpeas", "chisel", "plink", "ngrok"
+        "winpeas", "linpeas", "chisel", "plink", "ngrok",
+        "invoke-obfuscation", "certutil", "bitsadmin"
     };
 
     private static readonly Dictionary<string, string> SystemProcessPaths = new()
@@ -29,7 +31,11 @@ public class ProcessScanner : SecurityScannerBase
         ["svchost"] = @"C:\Windows\System32",
         ["services"] = @"C:\Windows\System32",
         ["lsass"] = @"C:\Windows\System32",
-        ["winlogon"] = @"C:\Windows\System32"
+        ["winlogon"] = @"C:\Windows\System32",
+        ["wininit"] = @"C:\Windows\System32",
+        ["dwm"] = @"C:\Windows\System32",
+        ["taskhostw"] = @"C:\Windows\System32",
+        ["conhost"] = @"C:\Windows\System32"
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
