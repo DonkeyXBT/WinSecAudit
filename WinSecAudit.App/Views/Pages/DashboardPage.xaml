@@ -148,7 +148,17 @@
             </Grid>
 
             <!-- Critical Findings -->
-            <TextBlock Text="Critical Findings" Style="{StaticResource SectionHeaderStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Critical Findings" Style="{StaticResource SectionHeaderStyle}"/>
+                <TextBlock Grid.Column="1" x:Name="CriticalFindingsCount"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           VerticalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </Grid>
 
             <Border Style="{StaticResource CardStyle}">
                 <ListView x:Name="CriticalFindingsList"
