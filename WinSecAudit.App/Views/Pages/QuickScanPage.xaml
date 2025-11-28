@@ -89,10 +89,17 @@
                                                        Style="{StaticResource CaptionTextBlockStyle}"/>
                                         </StackPanel>
 
-                                        <TextBlock Grid.Column="2"
-                                                   Text="{Binding Category}"
-                                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                        <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                            <TextBlock Text="{Binding Category}"
+                                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                       HorizontalAlignment="Right"/>
+                                            <TextBlock Text="{Binding Severity}"
+                                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                                       Foreground="{Binding Severity, Converter={StaticResource SeverityToBrushConverter}}"
+                                                       HorizontalAlignment="Right"
+                                                       FontWeight="SemiBold"/>
+                                        </StackPanel>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
