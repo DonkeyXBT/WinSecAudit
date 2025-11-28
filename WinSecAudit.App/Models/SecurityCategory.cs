@@ -89,7 +89,10 @@ public static class SecurityCategories
         Description = "Password policies, account lockout, and security options",
         IconGlyph = "\uE8A7",
         CheckCount = 15,
-        EstimatedDuration = TimeSpan.FromSeconds(10)
+        EstimatedDuration = TimeSpan.FromSeconds(10),
+        Priority = 10,
+        MitreTechniques = new() { "T1110", "T1078" },
+        CisSections = new() { "1.1", "1.2" }
     };
 
     public static readonly SecurityCategory Firewall = new()
