@@ -86,14 +86,13 @@ A comprehensive Windows security auditing toolkit featuring both a modern WinUI 
 - Administrator privileges
 
 #### Option 1: Download Release
-```
-1. Go to Releases page
-2. Download WinSecAudit-x.x.x.msix
-3. Double-click to install
-4. Run as Administrator
-```
+1. Go to the [Releases page](https://github.com/DonkeyXBT/WinSecAudit/releases)
+2. Download the latest release
+3. Extract and run as Administrator
 
-#### Option 2: Build from Source
+#### Option 2: Build from Source (Windows only)
+Requires [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) installed on Windows.
+
 ```powershell
 # Clone the repository
 git clone https://github.com/DonkeyXBT/WinSecAudit.git
