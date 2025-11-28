@@ -73,14 +73,28 @@ public class AuditProgressEventArgs : EventArgs
     public string CurrentCheck { get; }
     public int TotalChecks { get; }
     public int CompletedChecks { get; }
+    public TimeSpan ElapsedTime { get; }
+    public TimeSpan? EstimatedRemaining { get; }
+    public int FindingsCount { get; }
 
-    public AuditProgressEventArgs(int progress, string category, string check, int total, int completed)
+    public AuditProgressEventArgs(
+        int progress,
+        string category,
+        string check,
+        int total,
+        int completed,
+        TimeSpan elapsed = default,
+        TimeSpan? estimatedRemaining = null,
+        int findings = 0)
     {
         Progress = progress;
         CurrentCategory = category;
         CurrentCheck = check;
         TotalChecks = total;
         CompletedChecks = completed;
+        ElapsedTime = elapsed;
+        EstimatedRemaining = estimatedRemaining;
+        FindingsCount = findings;
     }
 }
 
