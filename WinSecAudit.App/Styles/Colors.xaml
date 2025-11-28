@@ -36,4 +36,20 @@
     <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
     <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+
+    <!-- Compliance Score Colors -->
+    <Color x:Key="ComplianceHighColor">#28A745</Color>
+    <Color x:Key="ComplianceMediumColor">#FFC107</Color>
+    <Color x:Key="ComplianceLowColor">#DC3545</Color>
+
+    <SolidColorBrush x:Key="ComplianceHighBrush" Color="{StaticResource ComplianceHighColor}"/>
+    <SolidColorBrush x:Key="ComplianceMediumBrush" Color="{StaticResource ComplianceMediumColor}"/>
+    <SolidColorBrush x:Key="ComplianceLowBrush" Color="{StaticResource ComplianceLowColor}"/>
+
+    <!-- Grade Colors -->
+    <Color x:Key="GradeAColor">#28A745</Color>
+    <Color x:Key="GradeBColor">#7FBA00</Color>
+    <Color x:Key="GradeCColor">#FFC107</Color>
+    <Color x:Key="GradeDColor">#FD7E14</Color>
+    <Color x:Key="GradeFColor">#DC3545</Color>
 </ResourceDictionary>

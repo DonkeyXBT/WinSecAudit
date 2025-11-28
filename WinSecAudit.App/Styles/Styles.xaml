@@ -75,4 +75,24 @@
         <Setter Property="Height" Value="64"/>
         <Setter Property="Foreground" Value="{ThemeResource AccentFillColorDefaultBrush}"/>
     </Style>
+
+    <!-- Score Display Style -->
+    <Style x:Key="ScoreDisplayStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Grade Display Style -->
+    <Style x:Key="GradeDisplayStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="72"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Tooltip Style -->
+    <Style x:Key="InfoTooltipStyle" TargetType="ToolTip">
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}"/>
+        <Setter Property="Padding" Value="12"/>
+    </Style>
 </ResourceDictionary>
