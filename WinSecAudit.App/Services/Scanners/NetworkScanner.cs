@@ -12,11 +12,12 @@ public class NetworkScanner : SecurityScannerBase
 {
     public override string CategoryId => "Network";
     public override string Name => "Network Security";
+    public override string Description => "Analyzes network configuration, open ports, shares, and protocol settings";
 
     private static readonly int[] HighRiskPorts = new[]
     {
-        21, 23, 69, 135, 137, 138, 139, 161, 445,
-        512, 513, 514, 1433, 1521, 3306, 3389, 5432, 5900
+        20, 21, 23, 69, 111, 135, 137, 138, 139, 161, 162, 445,
+        512, 513, 514, 1433, 1521, 2049, 3306, 3389, 5432, 5900, 5985, 5986
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
