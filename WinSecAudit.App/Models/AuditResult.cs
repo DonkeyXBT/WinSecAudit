@@ -69,6 +69,32 @@ public class AuditResult
     /// Error message if audit failed.
     /// </summary>
     public string? ErrorMessage { get; set; }
+
+    /// <summary>
+    /// Overall security score (0-100).
+    /// </summary>
+    public int SecurityScore { get; set; }
+
+    /// <summary>
+    /// Security grade (A-F).
+    /// </summary>
+    public string SecurityGrade { get; set; } = "N/A";
+
+    /// <summary>
+    /// Baseline used for comparison, if any.
+    /// </summary>
+    public string? BaselineUsed { get; set; }
+
+    /// <summary>
+    /// Compliance percentage against baseline.
+    /// </summary>
+    public double CompliancePercentage { get; set; }
+
+    // Convenience properties for severity counts
+    public int CriticalCount => Findings.Count(f => f.Severity == Severity.Critical);
+    public int HighCount => Findings.Count(f => f.Severity == Severity.High);
+    public int MediumCount => Findings.Count(f => f.Severity == Severity.Medium);
+    public int LowCount => Findings.Count(f => f.Severity == Severity.Low);
 }
 
 /// <summary>
