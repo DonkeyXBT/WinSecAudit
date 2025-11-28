@@ -88,6 +88,27 @@ public class Baseline
             errors.Add("Check count cannot be negative");
         return errors;
     }
+
+    /// <summary>
+    /// Creates a copy of this baseline with a new ID.
+    /// </summary>
+    public Baseline Clone(string? newName = null)
+    {
+        return new Baseline
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = newName ?? $"{Name} (Copy)",
+            Description = Description,
+            Version = Version,
+            CreatedAt = DateTime.UtcNow,
+            SourceComputer = SourceComputer,
+            SourceOS = SourceOS,
+            Configuration = Configuration,
+            CheckCount = CheckCount,
+            Categories = new List<string>(Categories),
+            DocumentationUrl = DocumentationUrl
+        };
+    }
 }
 
 /// <summary>
