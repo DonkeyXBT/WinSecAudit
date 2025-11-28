@@ -59,6 +59,35 @@ public class Baseline
     /// URL to the baseline documentation.
     /// </summary>
     public string? DocumentationUrl { get; set; }
+
+    /// <summary>
+    /// Validates the baseline configuration.
+    /// </summary>
+    /// <returns>True if the baseline is valid.</returns>
+    public bool IsValid()
+    {
+        if (string.IsNullOrWhiteSpace(Name)) return false;
+        if (string.IsNullOrWhiteSpace(Version)) return false;
+        if (Configuration == null) return false;
+        return true;
+    }
+
+    /// <summary>
+    /// Gets validation errors for this baseline.
+    /// </summary>
+    public IEnumerable<string> GetValidationErrors()
+    {
+        var errors = new List<string>();
+        if (string.IsNullOrWhiteSpace(Name))
+            errors.Add("Baseline name is required");
+        if (string.IsNullOrWhiteSpace(Version))
+            errors.Add("Baseline version is required");
+        if (Configuration == null)
+            errors.Add("Baseline configuration is required");
+        if (CheckCount < 0)
+            errors.Add("Check count cannot be negative");
+        return errors;
+    }
 }
 
 /// <summary>
