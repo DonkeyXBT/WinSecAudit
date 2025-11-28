@@ -11,11 +11,13 @@ public class ServiceScanner : SecurityScannerBase
 {
     public override string CategoryId => "Services";
     public override string Name => "Windows Services";
+    public override string Description => "Analyzes Windows services for security misconfigurations and vulnerabilities";
 
     private static readonly string[] DangerousServices = new[]
     {
-        "RemoteRegistry", "Telnet", "SNMP", "SSDPSRV",
-        "upnphost", "Fax", "lltdsvc", "MSiSCSI", "SNMPTRAP"
+        "RemoteRegistry", "Telnet", "SNMP", "SSDPSRV", "upnphost",
+        "Fax", "lltdsvc", "MSiSCSI", "SNMPTRAP", "XblAuthManager",
+        "XblGameSave", "XboxGipSvc", "XboxNetApiSvc", "RetailDemo"
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
