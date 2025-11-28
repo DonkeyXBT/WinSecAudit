@@ -112,11 +112,16 @@ public class FirewallScanner : SecurityScannerBase
     {
         var highRiskPorts = new Dictionary<int, string>
         {
+            { 20, "FTP Data" },
             { 21, "FTP" },
             { 23, "Telnet" },
             { 135, "RPC" },
+            { 139, "NetBIOS" },
             { 445, "SMB" },
-            { 3389, "RDP" }
+            { 1433, "SQL Server" },
+            { 3389, "RDP" },
+            { 5985, "WinRM HTTP" },
+            { 5986, "WinRM HTTPS" }
         };
 
         // This would normally use NetFirewallRule cmdlets
