@@ -46,6 +46,12 @@ public partial class ScanViewModel : ObservableObject
     [ObservableProperty]
     private TimeSpan _elapsedTime;
 
+    [ObservableProperty]
+    private string _scanStatus = "Ready";
+
+    [ObservableProperty]
+    private bool _canExport;
+
     private DateTime _startTime;
 
     public ScanViewModel(IAuditService auditService)
