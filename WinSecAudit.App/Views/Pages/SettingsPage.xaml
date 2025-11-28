@@ -38,6 +38,13 @@
                             <ComboBoxItem>CSV</ComboBoxItem>
                         </ComboBox>
                     </controls:SettingsCard>
+                    <controls:SettingsCard Header="Default baseline">
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem>CIS Benchmark</ComboBoxItem>
+                            <ComboBoxItem>DISA STIG</ComboBoxItem>
+                            <ComboBoxItem>Microsoft Baseline</ComboBoxItem>
+                        </ComboBox>
+                    </controls:SettingsCard>
                 </controls:SettingsExpander.Items>
             </controls:SettingsExpander>
 
