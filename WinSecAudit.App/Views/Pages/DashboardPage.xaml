@@ -27,13 +27,15 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
                     <Button x:Name="QuickScanButton"
                             Style="{StaticResource AccentButtonStyle}"
-                            Click="QuickScan_Click">
+                            Click="QuickScan_Click"
+                            ToolTipService.ToolTip="Run a quick security scan of critical settings">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon Glyph="&#xE916;" FontSize="16"/>
                             <TextBlock Text="Quick Scan"/>
                         </StackPanel>
                     </Button>
-                    <Button Click="Refresh_Click">
+                    <Button Click="Refresh_Click"
+                            ToolTipService.ToolTip="Refresh dashboard data">
                         <FontIcon Glyph="&#xE72C;" FontSize="16"/>
                     </Button>
                 </StackPanel>
