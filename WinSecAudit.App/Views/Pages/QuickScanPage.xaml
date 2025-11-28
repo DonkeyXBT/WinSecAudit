@@ -16,6 +16,9 @@
             <TextBlock Text="Performs a fast security assessment of the most critical settings."
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            <TextBlock Text="Checks: Password Policy, UAC, Firewall, Windows Defender, SMB Signing, LLMNR, WDigest"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
         </StackPanel>
 
         <!-- Content -->
