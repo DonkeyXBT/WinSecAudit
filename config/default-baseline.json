@@ -1,0 +1,54 @@
+{
+  "Version": "1.0",
+  "Description": "Default security baseline for Windows Server",
+  "PasswordPolicy": {
+    "MinimumPasswordLength": 14,
+    "PasswordComplexity": 1,
+    "MaximumPasswordAge": 60,
+    "MinimumPasswordAge": 1,
+    "PasswordHistorySize": 24,
+    "LockoutBadCount": 5,
+    "LockoutDuration": 15
+  },
+  "Firewall": {
+    "Domain": {
+      "Enabled": true,
+      "DefaultInboundAction": "Block",
+      "DefaultOutboundAction": "Allow"
+    },
+    "Private": {
+      "Enabled": true,
+      "DefaultInboundAction": "Block",
+      "DefaultOutboundAction": "Allow"
+    },
+    "Public": {
+      "Enabled": true,
+      "DefaultInboundAction": "Block",
+      "DefaultOutboundAction": "Allow"
+    }
+  },
+  "Registry": {
+    "SMBServerSigning": 1,
+    "SMBClientSigning": 1,
+    "LLMNRDisabled": 0,
+    "WDigest": 0,
+    "LSAProtection": 1,
+    "EnableLUA": 1,
+    "CachedLogonsCount": 2
+  },
+  "Services": {
+    "RemoteRegistry": "Disabled",
+    "Telnet": "Disabled",
+    "SNMP": "Disabled",
+    "Fax": "Disabled"
+  },
+  "AuditPolicy": {
+    "Credential Validation": "Success and Failure",
+    "Security Group Management": "Success",
+    "User Account Management": "Success and Failure",
+    "Process Creation": "Success",
+    "Logon": "Success and Failure",
+    "Special Logon": "Success",
+    "Audit Policy Change": "Success"
+  }
+}

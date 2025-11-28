@@ -1,0 +1,32 @@
+# Reports
+reports/*.html
+reports/*.json
+reports/*.csv
+
+# Baselines (except default)
+config/Baseline_*.json
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# PowerShell
+*.ps1xml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test results
+test-results.xml
+coverage.xml
