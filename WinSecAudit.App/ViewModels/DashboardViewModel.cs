@@ -43,6 +43,12 @@ public partial class DashboardViewModel : ObservableObject
     private string _securityGrade = "N/A";
 
     [ObservableProperty]
+    private string _riskLevel = "Unknown";
+
+    [ObservableProperty]
+    private int _totalVulnerabilities;
+
+    [ObservableProperty]
     private DateTime? _lastScanTime;
 
     public DashboardViewModel(IAuditService auditService)
