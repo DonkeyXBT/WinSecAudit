@@ -10,6 +10,7 @@ public class UserAccountScanner : SecurityScannerBase
 {
     public override string CategoryId => "Users";
     public override string Name => "User Accounts";
+    public override string Description => "Audits local user accounts, administrators group, and password policies";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
