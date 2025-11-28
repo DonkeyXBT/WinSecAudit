@@ -26,7 +26,7 @@ A comprehensive PowerShell-based security auditing framework for Windows Server 
 
 ```powershell
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/WinSecAudit.git
+git clone https://github.com/DonkeyXBT/WinSecAudit.git
 
 # Import the module
 Import-Module .\WinSecAudit\WinSecAudit.psm1
@@ -165,7 +165,7 @@ Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTIN
 - [ ] Azure AD security checks
 - [ ] Scheduled scanning with email reports
 - [ ] Web-based dashboard
-- [ ] Remediation automation scripts
+- [x] Remediation automation scripts
 - [ ] Multi-server scanning support
 
 ## License
