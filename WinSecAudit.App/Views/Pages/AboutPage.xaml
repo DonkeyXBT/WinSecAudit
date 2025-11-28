@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="WinSecAudit.Views.Pages.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="24" Spacing="24" MaxWidth="800">
+            <StackPanel HorizontalAlignment="Center" Spacing="16">
+                <Border Width="80" Height="80" CornerRadius="16" Background="{StaticResource AccentBrush}">
+                    <FontIcon Glyph="&#xE8D7;" FontSize="40" Foreground="White"/>
+                </Border>
+                <TextBlock Text="WinSecAudit" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBlock Text="Version 2.0.0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Windows Security Auditing Framework" FontWeight="SemiBold"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                        A comprehensive security auditing tool for Windows Server environments.
+                        Helps identify security misconfigurations, vulnerabilities, and deviations
+                        from security best practices aligned with CIS Benchmarks and MITRE ATT&amp;CK.
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Features" FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock>• Active Directory Audit</TextBlock>
+                            <TextBlock>• Local Security Policy</TextBlock>
+                            <TextBlock>• Firewall Configuration</TextBlock>
+                            <TextBlock>• Service Security</TextBlock>
+                            <TextBlock>• Registry Hardening</TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock>• User Account Security</TextBlock>
+                            <TextBlock>• Network Security</TextBlock>
+                            <TextBlock>• Audit Policy</TextBlock>
+                            <TextBlock>• Process Analysis</TextBlock>
+                            <TextBlock>• Scheduled Tasks</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="License" FontWeight="SemiBold"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                        MIT License - Open source software for legitimate security assessment purposes.
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <HyperlinkButton Content="View on GitHub" NavigateUri="https://github.com/DonkeyXBT/WinSecAudit"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
