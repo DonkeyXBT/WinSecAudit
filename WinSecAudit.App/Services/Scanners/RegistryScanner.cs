@@ -150,6 +150,20 @@ public class RegistryScanner : SecurityScannerBase
                     "Set NoDriveTypeAutoRun to 255 (0xFF) via Group Policy",
                     "CIS Benchmark: 18.9.8.3",
                     cancellationToken);
+
+                // NetBIOS over TCP/IP
+                CheckRegistryValue(
+                    findings,
+                    @"SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces\Tcpip_",
+                    "NetbiosOptions",
+                    2,
+                    "NetBIOS Disabled",
+                    Severity.Medium,
+                    "NetBIOS over TCP/IP may be enabled",
+                    "NetBIOS can be used for NBNS poisoning attacks",
+                    "Disable NetBIOS in network adapter settings",
+                    "MITRE ATT&CK T1557.001",
+                    cancellationToken);
             }
         }, cancellationToken);
 
