@@ -142,6 +142,12 @@ public class UserAccountScanner : SecurityScannerBase
 
                 // Check Administrators group membership
                 CheckAdministratorsGroup(findings, context, cancellationToken);
+
+                // Check Remote Desktop Users group
+                if (!quick)
+                {
+                    CheckRemoteDesktopUsersGroup(findings, context, cancellationToken);
+                }
             }
             catch (Exception ex)
             {
@@ -185,6 +191,44 @@ public class UserAccountScanner : SecurityScannerBase
                     findings.Add(CreatePassedFinding(
                         "Local Administrators Count",
                         $"Only {members.Count} members in Administrators group"));
+                }
+            }
+        }
+        catch { }
+    }
+
+    private void CheckRemoteDesktopUsersGroup(List<Finding> findings, PrincipalContext context, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        try
+        {
+            using var rdpGroup = GroupPrincipal.FindByIdentity(context, "Remote Desktop Users");
+            if (rdpGroup != null)
+            {
+                var members = rdpGroup.GetMembers().ToList();
+
+                if (members.Count > 5)
+                {
+                    findings.Add(CreateFailedFinding(
+                        "Excessive Remote Desktop Users",
+                        Severity.Medium,
+                        $"{members.Count} members in Remote Desktop Users group",
+                        string.Join(", ", members.Select(m => m.SamAccountName).Take(10)),
+                        "Limit RDP access to essential users only",
+                        "Principle of least privilege"));
+                }
+                else if (members.Count > 0)
+                {
+                    findings.Add(new Finding
+                    {
+                        Check = "Remote Desktop Users",
+                        Severity = Severity.Info,
+                        Status = FindingStatus.Passed,
+                        Category = CategoryId,
+                        Description = $"{members.Count} members in Remote Desktop Users group",
+                        Details = string.Join(", ", members.Select(m => m.SamAccountName))
+                    });
                 }
             }
         }
