@@ -11,6 +11,7 @@ public class FirewallScanner : SecurityScannerBase
 {
     public override string CategoryId => "Firewall";
     public override string Name => "Windows Firewall";
+    public override string Description => "Analyzes Windows Firewall profiles, rules, and logging configuration";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
