@@ -49,6 +49,21 @@ public class SecurityCategory
     /// Whether this category requires Active Directory.
     /// </summary>
     public bool RequiresAD { get; set; }
+
+    /// <summary>
+    /// Priority for scanning order (lower = higher priority).
+    /// </summary>
+    public int Priority { get; set; } = 100;
+
+    /// <summary>
+    /// MITRE ATT&CK techniques covered by this category.
+    /// </summary>
+    public List<string> MitreTechniques { get; set; } = new();
+
+    /// <summary>
+    /// CIS Benchmark sections covered by this category.
+    /// </summary>
+    public List<string> CisSections { get; set; } = new();
 }
 
 /// <summary>
