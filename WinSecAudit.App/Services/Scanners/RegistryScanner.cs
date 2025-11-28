@@ -107,6 +107,20 @@ public class RegistryScanner : SecurityScannerBase
             // Cached Logons
             CheckCachedLogons(findings, cancellationToken);
 
+            // SMBv1 Client
+            CheckRegistryValue(
+                findings,
+                @"SYSTEM\CurrentControlSet\Services\mrxsmb10",
+                "Start",
+                4,
+                "SMBv1 Client Disabled",
+                Severity.High,
+                "SMBv1 client driver is enabled",
+                "SMBv1 is vulnerable to EternalBlue and WannaCry exploits",
+                "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client",
+                "MS17-010",
+                cancellationToken);
+
             if (!quick)
             {
                 // Restrict Anonymous
