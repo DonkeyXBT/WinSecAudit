@@ -13,6 +13,10 @@
             <TextBlock Text="Full Security Audit" Style="{StaticResource PageHeaderStyle}"/>
             <TextBlock Text="Comprehensive security assessment of all system configurations."
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            <TextBlock Text="Scans all 10 security categories with 100+ individual checks. Estimated time: 2-5 minutes."
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                       Margin="0,4,0,0"/>
         </StackPanel>
 
         <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,24,0,0">
