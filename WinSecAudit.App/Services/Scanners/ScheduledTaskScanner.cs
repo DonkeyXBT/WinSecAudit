@@ -11,6 +11,7 @@ public class ScheduledTaskScanner : SecurityScannerBase
 {
     public override string CategoryId => "Tasks";
     public override string Name => "Scheduled Tasks";
+    public override string Description => "Analyzes scheduled tasks for persistence mechanisms and suspicious patterns";
 
     private static readonly string[] SuspiciousPatterns = new[]
     {
@@ -18,12 +19,15 @@ public class ScheduledTaskScanner : SecurityScannerBase
         @"powershell.*downloadstring",
         @"powershell.*webclient",
         @"powershell.*iex",
+        @"powershell.*invoke-expression",
         @"cmd.*/c.*http",
         @"certutil.*-urlcache",
         @"bitsadmin.*transfer",
         @"mshta.*http",
         @"regsvr32.*/s.*/n.*/u",
-        @"rundll32.*javascript"
+        @"rundll32.*javascript",
+        @"wscript.*http",
+        @"cscript.*http"
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
