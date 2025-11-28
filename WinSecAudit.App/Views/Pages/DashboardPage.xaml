@@ -182,6 +182,11 @@
                                     <TextBlock Text="{Binding Description}"
                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Remediation}"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{StaticResource AccentBrush}"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
