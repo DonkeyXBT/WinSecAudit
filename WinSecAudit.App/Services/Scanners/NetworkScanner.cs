@@ -12,11 +12,12 @@ public class NetworkScanner : SecurityScannerBase
 {
     public override string CategoryId => "Network";
     public override string Name => "Network Security";
+    public override string Description => "Analyzes network configuration, open ports, shares, and protocol settings";
 
     private static readonly int[] HighRiskPorts = new[]
     {
-        21, 23, 69, 135, 137, 138, 139, 161, 445,
-        512, 513, 514, 1433, 1521, 3306, 3389, 5432, 5900
+        20, 21, 23, 69, 111, 135, 137, 138, 139, 161, 162, 445,
+        512, 513, 514, 1433, 1521, 2049, 3306, 3389, 5432, 5900, 5985, 5986
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
@@ -43,6 +44,9 @@ public class NetworkScanner : SecurityScannerBase
 
                     // Check DNS settings
                     CheckDnsSettings(findings, cancellationToken);
+
+                    // Check WPAD vulnerability
+                    CheckWpadVulnerability(findings, cancellationToken);
                 }
             }
             catch (Exception ex)
@@ -216,6 +220,35 @@ public class NetworkScanner : SecurityScannerBase
                     Description = "Public DNS servers are configured",
                     Remediation = "Consider using internal DNS only on servers"
                 });
+            }
+        }
+        catch { }
+    }
+
+    private void CheckWpadVulnerability(List<Finding> findings, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Internet Settings");
+            var autoDetect = (int?)key?.GetValue("AutoDetect") ?? 1;
+
+            if (autoDetect == 1)
+            {
+                findings.Add(CreateFailedFinding(
+                    "WPAD Auto-Detection",
+                    Severity.Medium,
+                    "Web Proxy Auto-Discovery (WPAD) is enabled",
+                    "WPAD can be exploited for credential relay attacks",
+                    "Disable WPAD via GPO: Computer Config > Admin Templates > Windows Components > Internet Explorer > Disable caching of Auto-Proxy scripts",
+                    "MITRE ATT&CK T1557.001"));
+            }
+            else
+            {
+                findings.Add(CreatePassedFinding(
+                    "WPAD Auto-Detection",
+                    "WPAD auto-detection is disabled"));
             }
         }
         catch { }
