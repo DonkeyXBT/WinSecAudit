@@ -18,6 +18,16 @@ public interface ISecurityScanner
     string Name { get; }
 
     /// <summary>
+    /// Gets the scanner description.
+    /// </summary>
+    string Description { get; }
+
+    /// <summary>
+    /// Gets the estimated scan duration in seconds.
+    /// </summary>
+    int EstimatedDuration { get; }
+
+    /// <summary>
     /// Runs the security scan.
     /// </summary>
     /// <param name="quick">Whether to run a quick scan.</param>
@@ -33,6 +43,8 @@ public abstract class SecurityScannerBase : ISecurityScanner
 {
     public abstract string CategoryId { get; }
     public abstract string Name { get; }
+    public virtual string Description => $"Scans {Name} security settings";
+    public virtual int EstimatedDuration => 30;
 
     public abstract Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default);
 
