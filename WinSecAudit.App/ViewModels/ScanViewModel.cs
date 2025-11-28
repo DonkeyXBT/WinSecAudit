@@ -105,11 +105,16 @@ public partial class ScanViewModel : ObservableObject
         }
         catch (OperationCanceledException)
         {
-            // Scan was cancelled
+            ScanStatus = "Cancelled";
         }
         finally
         {
             IsScanning = false;
+            if (Result != null && Result.Findings.Any())
+            {
+                ScanStatus = "Completed";
+                CanExport = true;
+            }
             _cts?.Dispose();
             _cts = null;
         }
