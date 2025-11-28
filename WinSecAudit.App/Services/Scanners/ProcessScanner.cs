@@ -31,7 +31,11 @@ public class ProcessScanner : SecurityScannerBase
         ["svchost"] = @"C:\Windows\System32",
         ["services"] = @"C:\Windows\System32",
         ["lsass"] = @"C:\Windows\System32",
-        ["winlogon"] = @"C:\Windows\System32"
+        ["winlogon"] = @"C:\Windows\System32",
+        ["wininit"] = @"C:\Windows\System32",
+        ["dwm"] = @"C:\Windows\System32",
+        ["taskhostw"] = @"C:\Windows\System32",
+        ["conhost"] = @"C:\Windows\System32"
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
