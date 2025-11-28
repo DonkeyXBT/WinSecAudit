@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="WinSecAudit.Views.Pages.CustomScanPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Custom Scan" Style="{StaticResource PageHeaderStyle}"/>
+            <TextBlock Text="Select specific security categories to audit."
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Margin="0,24,0,0">
+            <StackPanel Spacing="8">
+                <CheckBox x:Name="AdCheck" Content="Active Directory" IsChecked="True"/>
+                <CheckBox x:Name="PolicyCheck" Content="Local Security Policy" IsChecked="True"/>
+                <CheckBox x:Name="FirewallCheck" Content="Windows Firewall" IsChecked="True"/>
+                <CheckBox x:Name="ServicesCheck" Content="Windows Services" IsChecked="True"/>
+                <CheckBox x:Name="RegistryCheck" Content="Registry Security" IsChecked="True"/>
+                <CheckBox x:Name="UsersCheck" Content="User Accounts" IsChecked="True"/>
+                <CheckBox x:Name="NetworkCheck" Content="Network Security" IsChecked="True"/>
+                <CheckBox x:Name="AuditCheck" Content="Audit Policy" IsChecked="True"/>
+                <CheckBox x:Name="ProcessCheck" Content="Running Processes" IsChecked="True"/>
+                <CheckBox x:Name="TasksCheck" Content="Scheduled Tasks" IsChecked="True"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+            <Button Click="SelectAll_Click">Select All</Button>
+            <Button Click="ClearAll_Click">Clear All</Button>
+            <Button Style="{StaticResource AccentButtonStyle}" Click="Start_Click">Start Custom Scan</Button>
+        </StackPanel>
+    </Grid>
+</Page>
