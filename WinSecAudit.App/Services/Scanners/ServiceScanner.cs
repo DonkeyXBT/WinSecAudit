@@ -11,11 +11,13 @@ public class ServiceScanner : SecurityScannerBase
 {
     public override string CategoryId => "Services";
     public override string Name => "Windows Services";
+    public override string Description => "Analyzes Windows services for security misconfigurations and vulnerabilities";
 
     private static readonly string[] DangerousServices = new[]
     {
-        "RemoteRegistry", "Telnet", "SNMP", "SSDPSRV",
-        "upnphost", "Fax", "lltdsvc", "MSiSCSI", "SNMPTRAP"
+        "RemoteRegistry", "Telnet", "SNMP", "SSDPSRV", "upnphost",
+        "Fax", "lltdsvc", "MSiSCSI", "SNMPTRAP", "XblAuthManager",
+        "XblGameSave", "XboxGipSvc", "XboxNetApiSvc", "RetailDemo"
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
@@ -72,6 +74,12 @@ public class ServiceScanner : SecurityScannerBase
 
                 // Check Windows Update service
                 CheckWindowsUpdateService(findings, services, cancellationToken);
+
+                // Check Windows Firewall service
+                CheckFirewallService(findings, services, cancellationToken);
+
+                // Check Event Log service
+                CheckEventLogService(findings, services, cancellationToken);
 
                 if (!quick)
                 {
@@ -143,6 +151,66 @@ public class ServiceScanner : SecurityScannerBase
                         $"StartMode: {startMode}",
                         "Enable Windows Update service for security patches",
                         "CIS Benchmark: 5.29"));
+                }
+                return;
+            }
+        }
+    }
+
+    private void CheckFirewallService(List<Finding> findings, ManagementObjectCollection services, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        foreach (ManagementObject service in services)
+        {
+            if (service["Name"]?.ToString() == "mpssvc")
+            {
+                var state = service["State"]?.ToString();
+                if (state != "Running")
+                {
+                    findings.Add(CreateFailedFinding(
+                        "Windows Firewall Service",
+                        Severity.Critical,
+                        "Windows Firewall service is not running",
+                        $"State: {state}",
+                        "Start and enable Windows Firewall service",
+                        "CIS Benchmark: 9.1"));
+                }
+                else
+                {
+                    findings.Add(CreatePassedFinding(
+                        "Windows Firewall Service",
+                        "Windows Firewall service is running"));
+                }
+                return;
+            }
+        }
+    }
+
+    private void CheckEventLogService(List<Finding> findings, ManagementObjectCollection services, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        foreach (ManagementObject service in services)
+        {
+            if (service["Name"]?.ToString() == "EventLog")
+            {
+                var state = service["State"]?.ToString();
+                if (state != "Running")
+                {
+                    findings.Add(CreateFailedFinding(
+                        "Windows Event Log Service",
+                        Severity.High,
+                        "Windows Event Log service is not running",
+                        $"State: {state}",
+                        "Start and enable Event Log service for security auditing",
+                        "CIS Benchmark: 5.11"));
+                }
+                else
+                {
+                    findings.Add(CreatePassedFinding(
+                        "Windows Event Log Service",
+                        "Event Log service is running"));
                 }
                 return;
             }
