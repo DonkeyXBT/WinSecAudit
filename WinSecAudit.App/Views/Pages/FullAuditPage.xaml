@@ -30,8 +30,13 @@
                     <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" Margin="0,8,0,0"/>
                     <TextBlock x:Name="CategoryText" Style="{StaticResource CaptionTextBlockStyle}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock x:Name="ElapsedTimeText"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,16,0"/>
                     <Button x:Name="StartBtn" Style="{StaticResource AccentButtonStyle}" Click="Start_Click">Start Full Audit</Button>
+                    <Button x:Name="ExportBtn" Click="Export_Click" Visibility="Collapsed">Export Results</Button>
                     <Button x:Name="CancelBtn" Click="Cancel_Click" Visibility="Collapsed">Cancel</Button>
                 </StackPanel>
             </Grid>
