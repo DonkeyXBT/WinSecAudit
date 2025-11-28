@@ -78,6 +78,9 @@ public class ServiceScanner : SecurityScannerBase
                 // Check Windows Firewall service
                 CheckFirewallService(findings, services, cancellationToken);
 
+                // Check Event Log service
+                CheckEventLogService(findings, services, cancellationToken);
+
                 if (!quick)
                 {
                     // Check for SYSTEM services from non-standard locations
@@ -178,6 +181,36 @@ public class ServiceScanner : SecurityScannerBase
                     findings.Add(CreatePassedFinding(
                         "Windows Firewall Service",
                         "Windows Firewall service is running"));
+                }
+                return;
+            }
+        }
+    }
+
+    private void CheckEventLogService(List<Finding> findings, ManagementObjectCollection services, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        foreach (ManagementObject service in services)
+        {
+            if (service["Name"]?.ToString() == "EventLog")
+            {
+                var state = service["State"]?.ToString();
+                if (state != "Running")
+                {
+                    findings.Add(CreateFailedFinding(
+                        "Windows Event Log Service",
+                        Severity.High,
+                        "Windows Event Log service is not running",
+                        $"State: {state}",
+                        "Start and enable Event Log service for security auditing",
+                        "CIS Benchmark: 5.11"));
+                }
+                else
+                {
+                    findings.Add(CreatePassedFinding(
+                        "Windows Event Log Service",
+                        "Event Log service is running"));
                 }
                 return;
             }
