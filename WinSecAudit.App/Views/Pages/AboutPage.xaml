@@ -51,6 +51,18 @@
 
             <Border Style="{StaticResource CardStyle}">
                 <StackPanel Spacing="8">
+                    <TextBlock Text="Security Standards" FontWeight="SemiBold"/>
+                    <StackPanel Spacing="4">
+                        <TextBlock>• CIS Benchmarks for Windows Server 2022</TextBlock>
+                        <TextBlock>• DISA STIG for Windows</TextBlock>
+                        <TextBlock>• Microsoft Security Baselines</TextBlock>
+                        <TextBlock>• MITRE ATT&amp;CK Framework</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="8">
                     <TextBlock Text="License" FontWeight="SemiBold"/>
                     <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
                         MIT License - Open source software for legitimate security assessment purposes.
@@ -58,7 +70,10 @@
                 </StackPanel>
             </Border>
 
-            <HyperlinkButton Content="View on GitHub" NavigateUri="https://github.com/DonkeyXBT/WinSecAudit"/>
+            <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Center">
+                <HyperlinkButton Content="View on GitHub" NavigateUri="https://github.com/DonkeyXBT/WinSecAudit"/>
+                <HyperlinkButton Content="Report Issues" NavigateUri="https://github.com/DonkeyXBT/WinSecAudit/issues"/>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>
