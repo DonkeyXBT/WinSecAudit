@@ -46,6 +46,12 @@ public partial class ScanViewModel : ObservableObject
     [ObservableProperty]
     private TimeSpan _elapsedTime;
 
+    [ObservableProperty]
+    private string _scanStatus = "Ready";
+
+    [ObservableProperty]
+    private bool _canExport;
+
     private DateTime _startTime;
 
     public ScanViewModel(IAuditService auditService)
@@ -85,6 +91,8 @@ public partial class ScanViewModel : ObservableObject
         Summary = new AuditSummary();
         _cts = new CancellationTokenSource();
         _startTime = DateTime.Now;
+        ScanStatus = "Scanning...";
+        CanExport = false;
 
         // Start elapsed time timer
         _ = UpdateElapsedTimeAsync();
@@ -97,11 +105,16 @@ public partial class ScanViewModel : ObservableObject
         }
         catch (OperationCanceledException)
         {
-            // Scan was cancelled
+            ScanStatus = "Cancelled";
         }
         finally
         {
             IsScanning = false;
+            if (Result != null && Result.Findings.Any())
+            {
+                ScanStatus = "Completed";
+                CanExport = true;
+            }
             _cts?.Dispose();
             _cts = null;
         }
