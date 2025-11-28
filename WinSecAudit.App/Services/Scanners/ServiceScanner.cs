@@ -75,6 +75,9 @@ public class ServiceScanner : SecurityScannerBase
                 // Check Windows Update service
                 CheckWindowsUpdateService(findings, services, cancellationToken);
 
+                // Check Windows Firewall service
+                CheckFirewallService(findings, services, cancellationToken);
+
                 if (!quick)
                 {
                     // Check for SYSTEM services from non-standard locations
@@ -145,6 +148,36 @@ public class ServiceScanner : SecurityScannerBase
                         $"StartMode: {startMode}",
                         "Enable Windows Update service for security patches",
                         "CIS Benchmark: 5.29"));
+                }
+                return;
+            }
+        }
+    }
+
+    private void CheckFirewallService(List<Finding> findings, ManagementObjectCollection services, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+
+        foreach (ManagementObject service in services)
+        {
+            if (service["Name"]?.ToString() == "mpssvc")
+            {
+                var state = service["State"]?.ToString();
+                if (state != "Running")
+                {
+                    findings.Add(CreateFailedFinding(
+                        "Windows Firewall Service",
+                        Severity.Critical,
+                        "Windows Firewall service is not running",
+                        $"State: {state}",
+                        "Start and enable Windows Firewall service",
+                        "CIS Benchmark: 9.1"));
+                }
+                else
+                {
+                    findings.Add(CreatePassedFinding(
+                        "Windows Firewall Service",
+                        "Windows Firewall service is running"));
                 }
                 return;
             }
