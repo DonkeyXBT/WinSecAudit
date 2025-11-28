@@ -67,6 +67,19 @@
                 <Button Content="Browse..."/>
             </controls:SettingsCard>
 
+            <!-- Advanced -->
+            <controls:SettingsExpander Header="Advanced" Description="Advanced scanning options"
+                                       HeaderIcon="{FontIcon Glyph=&#xE912;}">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="Enable verbose logging">
+                        <ToggleSwitch IsOn="False"/>
+                    </controls:SettingsCard>
+                    <controls:SettingsCard Header="Scan timeout (seconds)">
+                        <NumberBox Value="300" Minimum="60" Maximum="3600" SpinButtonPlacementMode="Compact"/>
+                    </controls:SettingsCard>
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+
             <!-- Reset -->
             <controls:SettingsCard Header="Reset settings" Description="Restore default settings"
                                    HeaderIcon="{FontIcon Glyph=&#xE72C;}">
