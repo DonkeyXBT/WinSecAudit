@@ -43,6 +43,12 @@ public partial class DashboardViewModel : ObservableObject
     private string _securityGrade = "N/A";
 
     [ObservableProperty]
+    private string _riskLevel = "Unknown";
+
+    [ObservableProperty]
+    private int _totalVulnerabilities;
+
+    [ObservableProperty]
     private DateTime? _lastScanTime;
 
     public DashboardViewModel(IAuditService auditService)
@@ -112,6 +118,16 @@ public partial class DashboardViewModel : ObservableObject
             >= 60 => "D",
             _ => "F"
         };
+
+        RiskLevel = score switch
+        {
+            >= 90 => "Low",
+            >= 70 => "Medium",
+            >= 50 => "High",
+            _ => "Critical"
+        };
+
+        TotalVulnerabilities = Summary.Critical + Summary.High + Summary.Medium + Summary.Low;
     }
 
     [RelayCommand]
