@@ -11,6 +11,7 @@ public class AuditPolicyScanner : SecurityScannerBase
 {
     public override string CategoryId => "AuditPolicy";
     public override string Name => "Audit Policy";
+    public override string Description => "Verifies Windows audit policies, logging configuration, and event log settings";
 
     private static readonly Dictionary<string, (string Required, Severity Severity)> RequiredSettings = new()
     {
@@ -19,8 +20,11 @@ public class AuditPolicyScanner : SecurityScannerBase
         ["User Account Management"] = ("Success and Failure", Severity.High),
         ["Process Creation"] = ("Success", Severity.High),
         ["Logon"] = ("Success and Failure", Severity.High),
+        ["Logoff"] = ("Success", Severity.Medium),
         ["Special Logon"] = ("Success", Severity.High),
-        ["Audit Policy Change"] = ("Success", Severity.High)
+        ["Audit Policy Change"] = ("Success", Severity.High),
+        ["Authentication Policy Change"] = ("Success", Severity.High),
+        ["Sensitive Privilege Use"] = ("Success and Failure", Severity.High)
     };
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
