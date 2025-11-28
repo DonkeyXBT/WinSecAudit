@@ -126,6 +126,7 @@ public class FirewallScanner : SecurityScannerBase
 
         // This would normally use NetFirewallRule cmdlets
         // Simplified for demonstration
+        var portList = string.Join(", ", highRiskPorts.Select(p => $"{p.Key} ({p.Value})"));
         findings.Add(new Finding
         {
             Check = "High-Risk Port Analysis",
@@ -133,7 +134,28 @@ public class FirewallScanner : SecurityScannerBase
             Status = FindingStatus.Passed,
             Category = CategoryId,
             Description = "High-risk port analysis completed",
-            Details = "Review firewall rules for ports: 21, 23, 135, 445, 3389"
+            Details = $"Review firewall rules for high-risk ports: {portList}"
         });
+    }
+
+    private void CheckOutboundRestrictions(List<Finding> findings)
+    {
+        // Check if outbound filtering is enabled
+        var regPath = @"SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile";
+        using var key = Registry.LocalMachine.OpenSubKey(regPath);
+        if (key != null)
+        {
+            var defaultOutbound = (int?)key.GetValue("DefaultOutboundAction") ?? 0;
+            if (defaultOutbound == 0) // 0 = Allow
+            {
+                findings.Add(CreateFailedFinding(
+                    "Outbound Filtering",
+                    Severity.Low,
+                    "Default outbound action allows all traffic",
+                    "Consider restricting outbound connections for defense in depth",
+                    "Set-NetFirewallProfile -DefaultOutboundAction Block",
+                    "Best Practice"));
+            }
+        }
     }
 }
