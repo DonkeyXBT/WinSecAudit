@@ -10,6 +10,7 @@ public class RegistryScanner : SecurityScannerBase
 {
     public override string CategoryId => "Registry";
     public override string Name => "Registry Security";
+    public override string Description => "Audits security-related registry settings including SMB, UAC, and credential protection";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
