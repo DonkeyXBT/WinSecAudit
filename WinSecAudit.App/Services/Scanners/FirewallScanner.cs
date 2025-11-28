@@ -11,6 +11,7 @@ public class FirewallScanner : SecurityScannerBase
 {
     public override string CategoryId => "Firewall";
     public override string Name => "Windows Firewall";
+    public override string Description => "Analyzes Windows Firewall profiles, rules, and logging configuration";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
@@ -111,15 +112,21 @@ public class FirewallScanner : SecurityScannerBase
     {
         var highRiskPorts = new Dictionary<int, string>
         {
+            { 20, "FTP Data" },
             { 21, "FTP" },
             { 23, "Telnet" },
             { 135, "RPC" },
+            { 139, "NetBIOS" },
             { 445, "SMB" },
-            { 3389, "RDP" }
+            { 1433, "SQL Server" },
+            { 3389, "RDP" },
+            { 5985, "WinRM HTTP" },
+            { 5986, "WinRM HTTPS" }
         };
 
         // This would normally use NetFirewallRule cmdlets
         // Simplified for demonstration
+        var portList = string.Join(", ", highRiskPorts.Select(p => $"{p.Key} ({p.Value})"));
         findings.Add(new Finding
         {
             Check = "High-Risk Port Analysis",
@@ -127,7 +134,28 @@ public class FirewallScanner : SecurityScannerBase
             Status = FindingStatus.Passed,
             Category = CategoryId,
             Description = "High-risk port analysis completed",
-            Details = "Review firewall rules for ports: 21, 23, 135, 445, 3389"
+            Details = $"Review firewall rules for high-risk ports: {portList}"
         });
+    }
+
+    private void CheckOutboundRestrictions(List<Finding> findings)
+    {
+        // Check if outbound filtering is enabled
+        var regPath = @"SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile";
+        using var key = Registry.LocalMachine.OpenSubKey(regPath);
+        if (key != null)
+        {
+            var defaultOutbound = (int?)key.GetValue("DefaultOutboundAction") ?? 0;
+            if (defaultOutbound == 0) // 0 = Allow
+            {
+                findings.Add(CreateFailedFinding(
+                    "Outbound Filtering",
+                    Severity.Low,
+                    "Default outbound action allows all traffic",
+                    "Consider restricting outbound connections for defense in depth",
+                    "Set-NetFirewallProfile -DefaultOutboundAction Block",
+                    "Best Practice"));
+            }
+        }
     }
 }
