@@ -64,6 +64,21 @@ public class Finding
     /// Timestamp when this finding was discovered.
     /// </summary>
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// Risk score from 0-100 based on severity and exploitability.
+    /// </summary>
+    public int RiskScore { get; set; }
+
+    /// <summary>
+    /// Whether this finding has been acknowledged by the user.
+    /// </summary>
+    public bool IsAcknowledged { get; set; }
+
+    /// <summary>
+    /// User notes or comments about this finding.
+    /// </summary>
+    public string? Notes { get; set; }
 }
 
 /// <summary>
