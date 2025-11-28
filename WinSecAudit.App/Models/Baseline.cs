@@ -44,6 +44,21 @@ public class Baseline
     /// Configuration settings in the baseline.
     /// </summary>
     public BaselineConfiguration Configuration { get; set; } = new();
+
+    /// <summary>
+    /// Total number of checks in this baseline.
+    /// </summary>
+    public int CheckCount { get; set; }
+
+    /// <summary>
+    /// Categories included in this baseline.
+    /// </summary>
+    public List<string> Categories { get; set; } = new();
+
+    /// <summary>
+    /// URL to the baseline documentation.
+    /// </summary>
+    public string? DocumentationUrl { get; set; }
 }
 
 /// <summary>
