@@ -11,6 +11,7 @@ public class LocalPolicyScanner : SecurityScannerBase
 {
     public override string CategoryId => "LocalPolicy";
     public override string Name => "Local Security Policy";
+    public override string Description => "Audits password policies, account lockout settings, and security options";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
