@@ -10,6 +10,7 @@ public class RegistryScanner : SecurityScannerBase
 {
     public override string CategoryId => "Registry";
     public override string Name => "Registry Security";
+    public override string Description => "Audits security-related registry settings including SMB, UAC, and credential protection";
 
     public override async Task<IEnumerable<Finding>> ScanAsync(bool quick = false, CancellationToken cancellationToken = default)
     {
@@ -106,6 +107,20 @@ public class RegistryScanner : SecurityScannerBase
             // Cached Logons
             CheckCachedLogons(findings, cancellationToken);
 
+            // SMBv1 Client
+            CheckRegistryValue(
+                findings,
+                @"SYSTEM\CurrentControlSet\Services\mrxsmb10",
+                "Start",
+                4,
+                "SMBv1 Client Disabled",
+                Severity.High,
+                "SMBv1 client driver is enabled",
+                "SMBv1 is vulnerable to EternalBlue and WannaCry exploits",
+                "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client",
+                "MS17-010",
+                cancellationToken);
+
             if (!quick)
             {
                 // Restrict Anonymous
@@ -134,6 +149,20 @@ public class RegistryScanner : SecurityScannerBase
                     "AutoRun can be used to execute malware automatically",
                     "Set NoDriveTypeAutoRun to 255 (0xFF) via Group Policy",
                     "CIS Benchmark: 18.9.8.3",
+                    cancellationToken);
+
+                // NetBIOS over TCP/IP
+                CheckRegistryValue(
+                    findings,
+                    @"SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces\Tcpip_",
+                    "NetbiosOptions",
+                    2,
+                    "NetBIOS Disabled",
+                    Severity.Medium,
+                    "NetBIOS over TCP/IP may be enabled",
+                    "NetBIOS can be used for NBNS poisoning attacks",
+                    "Disable NetBIOS in network adapter settings",
+                    "MITRE ATT&CK T1557.001",
                     cancellationToken);
             }
         }, cancellationToken);
