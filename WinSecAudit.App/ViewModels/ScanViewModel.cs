@@ -91,6 +91,8 @@ public partial class ScanViewModel : ObservableObject
         Summary = new AuditSummary();
         _cts = new CancellationTokenSource();
         _startTime = DateTime.Now;
+        ScanStatus = "Scanning...";
+        CanExport = false;
 
         // Start elapsed time timer
         _ = UpdateElapsedTimeAsync();
